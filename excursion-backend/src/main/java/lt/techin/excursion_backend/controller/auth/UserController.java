@@ -1,4 +1,4 @@
-package lt.techin.excursion_backend.controller;
+package lt.techin.excursion_backend.controller.auth;
 
 import jakarta.validation.Valid;
 import lt.techin.excursion_backend.dto.UserMapper;

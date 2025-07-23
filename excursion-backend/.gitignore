@@ -35,3 +35,5 @@ build/
 #Security
 private.pem
 public.pem
+
+.env
