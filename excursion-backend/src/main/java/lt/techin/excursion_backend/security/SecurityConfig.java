@@ -34,10 +34,10 @@ import java.security.interfaces.RSAPublicKey;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    @Value("${jwt.public.pem}")
+    @Value("${jwt.public-key-location}")
     private RSAPublicKey publicKey;
 
-    @Value("${jwt.private.pem}")
+    @Value("${jwt.private-key-location}")
     private RSAPrivateKey privateKey;
 
     @Bean
@@ -53,7 +53,7 @@ public class SecurityConfig {
                         .
                 authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/api/auth/register").anonymous()
-                        .requestMatchers(HttpMethod.POST, "/api/auth/token").hasAnyRole()
+                        .requestMatchers(HttpMethod.POST, "/api/auth/token").hasAnyRole("ADMIN", "CLIENT")
                         .anyRequest().authenticated()
                 );
         return http.build();
