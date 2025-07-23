@@ -1,11 +1,9 @@
-package lt.techin.excursion_backend.controller;
+package lt.techin.excursion_backend.controller.auth;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/users")
-public class UserController {
-
-
+@RequestMapping("/api/auth")
+public class TokenController {
 }
