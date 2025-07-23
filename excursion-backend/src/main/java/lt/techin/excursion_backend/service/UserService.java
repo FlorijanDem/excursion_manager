@@ -32,6 +32,8 @@ public class UserService {
 
         user.setRoles(Set.of(defaultRole));
 
+        userRepository.save(user);
+
         return user;
     }
 

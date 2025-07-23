@@ -24,6 +24,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/users/auth/register").permitAll()
                         .anyRequest().authenticated()
                 )
+                .csrf(c -> c.disable()) // Only for development
                 .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults());
         return http.build();

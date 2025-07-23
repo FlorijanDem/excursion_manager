@@ -37,6 +37,7 @@ public class UserController {
 
         User user = UserMapper.toEntity(userRequestDTO);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+
         UserResponseDTO responseDTO = UserMapper.toDTO(userService.saveUser(user));
 
         return ResponseEntity.ok().body(responseDTO);
