@@ -11,6 +11,8 @@ function App() {
       <div>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
+          
+          <h1 className='text-red-500'>LABAS</h1>
         </a>
         <a href="https://react.dev" target="_blank">
           <img src={reactLogo} className="logo react" alt="React logo" />
