@@ -1,18 +1,18 @@
 # 🌐 Spring Boot + React web aplikacija
 
-Ši aplikacija yra moderni web sistema, sukurta naudojant **Spring Boot**(Java) ir **React**(JavaScript). Ši aplikacija yra skirta ekskursijų valdymui bei pritaikyta vartotojams, kurie nori matyti galimas ekskursijas savo mieste ir rezervuoti galimus laikus.
+Ši aplikacija yra moderni web sistema, sukurta naudojant **Spring Boot**(Java) ir **React**(JavaScript). Ši aplikacija yra skirta ekskursijų Lietuvoje valdymui bei pritaikyta vartotojams, kurie nori matyti ekskursijas savo mieste ir rezervuoti galimus laikus.
 
 ## 🧰 Naudotos technologijos:
 
 ### Back-end (Spring Boot):
-- Java 17
+- Java 21
 - Spring Web
 - Spring Data JPA
 - Spring Security
 - Spring Boot Starter Validation
 - Spring Boot DevTools
-- MySQL
-- JWT autentifikacija
+- MySQL Driver
+- OAuth2 Resource Server
 - Maven
 - Lombok
 
@@ -34,6 +34,9 @@
 ### paleisti back-end:
 - cd excursion-backend
 - atidaryti esamą aplanką naudojant IntelliJ IDEA
+- susikurti .env faila excursion-backed aplanke
+- iklijuoti kintamuosius i .env faila(kintamieji reikalingi prisijungimui prie duomenu bazes per apllication properties(klausti vieno is aplikacijos kureju)
+- susikurti aplnaka keys resources aplanke ir jame susikurti private.pem ir public.pem failus. juose iklijuoti public.pem ir private.pem raktus(klausti vieno is aplikacijos kureju)
 - paleisti ExcursionBackendApplication klasę
 
 ## 📦 Projekto struktūra
