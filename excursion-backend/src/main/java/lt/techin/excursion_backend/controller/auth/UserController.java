@@ -14,11 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static org.springframework.http.ResponseEntity.badRequest;
-import static org.springframework.http.ResponseEntity.created;
-
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/auth")
 public class UserController {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
@@ -29,7 +26,7 @@ public class UserController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @PostMapping("/auth/register")
+    @PostMapping("/register")
     public ResponseEntity<?> addUser(@Valid @RequestBody UserRequestDTO userRequestDTO) {
         if (userService.userExistsByEmail(userRequestDTO.email())) {
             return ResponseEntity.badRequest().body("User already exists with such email");
