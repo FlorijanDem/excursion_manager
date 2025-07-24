@@ -21,7 +21,7 @@ public class GlobalExceptionHandler extends BaseController {
 
         ex.getConstraintViolations().forEach((violation) -> errors.put(violation.getPropertyPath().toString(), violation.getMessage()));
 
-        return badRequest(errors, "Validation failed");
+        return badRequest(errors, "Request parameters are invalid");
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -30,16 +30,21 @@ public class GlobalExceptionHandler extends BaseController {
 
         ex.getBindingResult().getFieldErrors().forEach((error) -> errors.put(error.getField(), error.getDefaultMessage()));
 
-        return badRequest(errors, "validation failed");
+        return badRequest(errors, "Request body validation failed");
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<ApiResponse<String>> handleIllegalArgumentException(IllegalArgumentException ex) {
+    public ResponseEntity<ApiResponse<Void>> handleIllegalArgumentException(IllegalArgumentException ex) {
         return badRequest(null, ex.getMessage());
     }
 
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ApiResponse<Void>> handleException(Exception ex) {
+        return serverError("An unexpected server error occurred: " + ex.getMessage());
+    }
+
     @ExceptionHandler(ApiErrorException.class)
-    public ResponseEntity<ApiResponse<String>> handleApiErrorException(ApiErrorException ex) {
+    public ResponseEntity<ApiResponse<Void>> handleApiErrorException(ApiErrorException ex) {
         return ResponseEntity.status(ex.getHttpStatus()).body(new ApiResponse<>(null, ex.getMessage(), false));
     }
 }
