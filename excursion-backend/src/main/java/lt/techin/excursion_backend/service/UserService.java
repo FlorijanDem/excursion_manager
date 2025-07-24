@@ -32,6 +32,8 @@ public class UserService {
 
         user.setRoles(Set.of(defaultRole));
 
+        userRepository.save(user);
+
         return user;
     }
 
@@ -51,7 +53,7 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public boolean userExistsByUsername(String email) {
+    public boolean userExistsByEmail(String email) {
         return userRepository.existsByEmail(email);
     }
 
