@@ -4,8 +4,8 @@ WORKDIR /
 COPY . .
 
 # For Maven:
-RUN ./mvnw clean install
-# RUN ./mvnw clean package -DskipTests
+
+RUN ./mvnw clean package -DskipTests
 
 
 EXPOSE 8080

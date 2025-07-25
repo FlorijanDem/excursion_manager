@@ -1,13 +1,13 @@
-// package lt.techin.excursion_backend;
+package lt.techin.excursion_backend;
 
-// import org.junit.jupiter.api.Test;
-// import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
-// @SpringBootTest
-// class ExcursionBackendApplicationTests {
+@SpringBootTest
+class ExcursionBackendApplicationTests {
 
-// 	@Test
-// 	void contextLoads() {
-// 	}
+	@Test
+	void contextLoads() {
+	}
 
-// }
+}
