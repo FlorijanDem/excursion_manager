@@ -7,12 +7,11 @@ import lt.techin.excursion_backend.dto.UserResponseDTO;
 import lt.techin.excursion_backend.model.User;
 import lt.techin.excursion_backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
@@ -37,8 +36,17 @@ public class UserController {
 
         UserResponseDTO responseDTO = UserMapper.toDTO(userService.saveUser(user));
 
-        return ResponseEntity.ok().body(responseDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
 
+//    @DeleteMapping("/users/{id}")
+//    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+//        if (!userService.findUserById(id)) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+//        }
+//
+//        userService.deleteUserById(id);
+//        return ResponseEntity.ok("User deleted successfully");
+//    }
 
 }
