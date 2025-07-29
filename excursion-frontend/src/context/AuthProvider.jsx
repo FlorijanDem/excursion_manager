@@ -1,58 +1,63 @@
-import { createContext, useContext, useState, useMemo } from "react";
+import { clearAuth, setAuth } from "@/utils/api";
+
+const { createContext } = require("react");
 
 const AuthContext = createContext(null);
 
-export function AuthProvider({ children }) {
-  const [token, setToken] = useState(() => localStorage.getItem("token"));
-  const [roles, setRoles] = useState(() => {
-    try {
-      const stored = localStorage.getItem("roles");
-      return stored ? JSON.parse(stored) : [];
-    } catch {
-      return [];
+export const AuthProvider = ({ children }) => {
+  const navigate = useNavigate();
+
+  const [account, setAccount] = useState(() => {
+    const jwt = localStorage.getItem("jwt");
+
+    if (jwt) {
+      const decodedJwt = jwtDecode(jwt);
+      if (decodedJwt.exp * 1000 < Date.now()) {
+        localStorage.removeItem("jwt");
+        return null;
+      }
+      return decodedJwt;
     }
-  });
-  const [userId, setUserId] = useState(() => {
-    const stored = localStorage.getItem("userId");
-    return stored ? Number(stored) : null;
+    return null;
   });
 
-  const isLoggedIn = !!token;
+  const login = async (data) => {
+    try {
+      const response = await api.post("/auth/token", data);
+      const jwt = response.data.data;
+      localStorage.setItem("jwt", jwt);
+      setAccount(jwtDecode(jwt));
+      setAuth(jwt);
+      navigate("/");
+    } catch (error) {
+      const errorMessage =
+        error?.response?.data?.message ?? error?.message ?? "Unknown error";
+        const errorStatus = error?.response?.status
+        throw new ApiError(errorMessage, errorStatus);
+    }
+  }; 
 
-  const login = (data) => {
-    setToken(data.token);
-    setRoles(data.roles || []);
-    setUserId(data.userId || null);
-
-    localStorage.setItem("token", data.token);
-    localStorage.setItem("roles", JSON.stringify(data.roles) || []);
-    localStorage.setItem("userId", String(data.userId) || "");
+  const register = async ({ email, password}) => {
+    return await api.post("/auth/register", {
+      email,
+      password,
+    });
   };
 
   const logout = () => {
-    setToken(null);
-    setRoles([]);
-    setUserId(null);
-    localStorage.removeItem("token");
-    localStorage.removeItem("roles");
-    localStorage.removeItem("userId");
+    setAccount(null);
+    clearAuth();
+    localStorage.removeItem("jwt");
+    navigate("/home");
   };
 
-  const value = useMemo(
-    () => ({
-      token,
-      roles,
-      userId,
-      isLoggedIn,
-      login,
-      logout,
-    }),
-    [token, roles, userId, isLoggedIn]
+  return (
+    <AuthContext.Provider value={{account, login, logout, register}}>
+      {children}
+    </AuthContext.Provider>
   );
+};
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-}
-
-export function useAuth() {
-  return useContext(AuthContext);
-}
+export const useAuth = () => {
+  return useContext(AuthContext)
+};

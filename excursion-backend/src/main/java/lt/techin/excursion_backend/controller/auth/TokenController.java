@@ -24,7 +24,7 @@ import java.time.Instant;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api")
 public class TokenController extends BaseController {
     private final JwtEncoder jwtEncoder;
     private final UserRepository userRepository;
@@ -37,7 +37,7 @@ public class TokenController extends BaseController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @PostMapping("/token")
+    @PostMapping("/auth/token")
     public ResponseEntity<ApiResponse<String>> token(@Valid @RequestBody LoginRequestDTO loginRequestDTO) {
         Instant now = Instant.now();
         long expiry = 36000L;
