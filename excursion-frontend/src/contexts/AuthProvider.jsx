@@ -62,5 +62,5 @@ export const AuthProvider = ({ children }) => {
 
 export const useAuth = () => {
   return useContext(AuthContext)
-  //naudok authcontexta
+  
 };
