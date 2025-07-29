@@ -1,9 +1,8 @@
 import { api, clearAuth, setAuth } from "@/utils/api";
 import { ApiError } from "@/utils/apiError";
 import { jwtDecode } from "jwt-decode";
+import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router";
-
-const { createContext, useState, useContext } = require("react");
 
 const AuthContext = createContext(null);
 
