@@ -19,7 +19,7 @@ export default defineConfig({
     tailwindcss(),
   ],
   resolve: {
-    alias: { "@": path.resolve(__dirname, "src") },
+    alias: { '@': path.resolve(__dirname, 'src') },
   },
-  assetsInclude: ["**/*.png", "**/*.jpg", "**/*.jpeg", "**/*.svg"],
-})
+  assetsInclude: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.svg'],
+});
