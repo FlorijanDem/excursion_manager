@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -40,6 +41,7 @@ public class Excursion {
     private Category category;
 
     @OneToMany(mappedBy = "excursion", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Dates> datesList = new ArrayList<>();
 
     public void addDate(Dates date) {
@@ -90,4 +92,23 @@ public class Excursion {
     public void setPrice(double price) {
         this.price = price;
     }
+
+    public Category getCategory() {
+        return category;
+    }
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public List<Dates> getDatesList() {
+        return datesList;
+    }
+
+    public void setDatesList(List<Dates> datesList) {
+        this.datesList.clear();
+        for (Dates date : datesList) {
+            addDate(date);
+        }
+    }
+
 }
