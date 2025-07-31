@@ -2,6 +2,7 @@ package lt.techin.excursion_backend.controller.excursion;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import lt.techin.excursion_backend.dto.ExcursionDTO;
 import lt.techin.excursion_backend.model.Category;
 import lt.techin.excursion_backend.model.Excursion;
 import lt.techin.excursion_backend.repository.CategoryRepository;
@@ -36,8 +38,10 @@ public class ExcursionController {
     }
 
     @GetMapping
-    public List<Excursion> getAllExcursions() {
-        return excursionRepository.findAll();
+    public List<ExcursionDTO> getAllExcursions() {
+        return excursionRepository.findAll().stream()
+                .map(this::toDto)
+                .collect(Collectors.toList());
     }
 
     @PostMapping
@@ -63,5 +67,19 @@ public class ExcursionController {
         Excursion saved = excursionRepository.save(excursion);
         return ResponseEntity.ok(saved);
         // return excursionRepository.save(excursion);
+    }
+
+    private ExcursionDTO toDto(Excursion excursion) {
+        String categoryName = excursion.getCategory() != null
+                ? excursion.getCategory().getName()
+                : null;
+
+        return new ExcursionDTO(
+                excursion.getId(),
+                excursion.getTitle(),
+                excursion.getPhoto_url(),
+                excursion.getDuration(),
+                excursion.getPrice(),
+                categoryName);
     }
 }
