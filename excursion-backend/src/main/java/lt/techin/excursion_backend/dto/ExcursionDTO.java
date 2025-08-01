@@ -1,5 +1,7 @@
 package lt.techin.excursion_backend.dto;
 
+import java.util.List;
+
 public class ExcursionDTO {
     private Integer id;
     private String title;
@@ -7,19 +9,21 @@ public class ExcursionDTO {
     private String duration;
     private double price;
     private String categoryName;
+    private List<ExcursionDateDTO> datesList;
 
     public ExcursionDTO() {
 
     }
 
     public ExcursionDTO(Integer id, String title, String photo_url, String duration, double price,
-            String categoryName) {
+            String categoryName, List<ExcursionDateDTO> datesList) {
         this.id = id;
         this.title = title;
         this.photo_url = photo_url;
         this.duration = duration;
         this.price = price;
         this.categoryName = categoryName;
+        this.datesList = datesList;
     }
 
     public Integer getId() {
@@ -68,5 +72,13 @@ public class ExcursionDTO {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    public List<ExcursionDateDTO> getDatesList() {
+        return datesList;
+    }
+
+    public void setDatesList(List<ExcursionDateDTO> datesList) {
+        this.datesList = datesList;
     }
 }

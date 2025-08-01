@@ -1,5 +1,6 @@
 package lt.techin.excursion_backend.controller.excursion;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lt.techin.excursion_backend.dto.ExcursionDTO;
+import lt.techin.excursion_backend.dto.ExcursionDateDTO;
 import lt.techin.excursion_backend.model.Category;
 import lt.techin.excursion_backend.model.Excursion;
 import lt.techin.excursion_backend.repository.CategoryRepository;
@@ -74,12 +76,19 @@ public class ExcursionController {
                 ? excursion.getCategory().getName()
                 : null;
 
+        List<ExcursionDateDTO> dateDTOs = excursion.getDatesList() != null
+            ? excursion.getDatesList().stream()
+                .map(date -> new ExcursionDateDTO(date.getExcursionTime().toLocalDateTime()))
+                .collect(Collectors.toList())
+            : new ArrayList<>();
+
         return new ExcursionDTO(
                 excursion.getId(),
                 excursion.getTitle(),
                 excursion.getPhoto_url(),
                 excursion.getDuration(),
                 excursion.getPrice(),
-                categoryName);
+                categoryName,
+                dateDTOs);
     }
 }
