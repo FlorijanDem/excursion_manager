@@ -73,7 +73,14 @@ export default function ExcursionList() {
                   {exc.title}
                 </div>
                 <div>
-                  <img src={exc.photo_url} alt={exc.title} />
+                  <img
+                    src={exc.photo_url}
+                    alt={exc.title}
+                    onError={(e) => {
+                        e.target.onError =null;
+                        e.target.src = "/default-excursion.avif"
+                    }}
+                  />
                 </div>
                 <div>
                   <strong>Duration: </strong>
