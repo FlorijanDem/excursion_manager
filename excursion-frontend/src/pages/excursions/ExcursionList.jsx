@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-// import "./ExcursionList.css"
 
 export default function ExcursionList() {
   const apiUrl = import.meta.env.VITE_API_URL;
